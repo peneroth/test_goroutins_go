@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"math"
+	"os"
 	"runtime"
+	"strconv"
 	"time"
 )
 
@@ -21,11 +23,23 @@ const nbrRoutines = 100000
 func main() {
 	// NumCPU(): The set of available CPUs is checked by querying the operating system at process startup
 	// GOMAXPROCS sets the maximum number of CPUs that can be executing simultaneously
+	fmt.Println("Default configuration")
 	fmt.Println("NumCPU =", runtime.NumCPU())
 	fmt.Println("GOMAXPROCS =", runtime.GOMAXPROCS(0))
-	// Evalutate decreasing GOMAXPROCS
-	// runtime.GOMAXPROCS(2)
-	// fmt.Println("Set GOMAXPROCS to", runtime.GOMAXPROCS(0))
+	fmt.Println()
+
+	// Let the user set GOMAXPROCS via command line arguments
+	if len(os.Args) == 2 {
+		x, err := strconv.Atoi(os.Args[1])
+		if err == nil {
+			runtime.GOMAXPROCS(x)
+			fmt.Println("Set GOMAXPROCS to", runtime.GOMAXPROCS(0))
+			fmt.Println()
+		} else {
+			fmt.Println("First command line argument should be an integer")
+			os.Exit(1)
+		}
+	}
 
 	// Create channel, used to wait for all routines to complete
 	c := make(chan float64)
