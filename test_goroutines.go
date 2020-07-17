@@ -3,10 +3,11 @@ package main
 import (
 	"fmt"
 	"math"
+	"runtime"
 	"time"
 )
 
-func arbInc(i int, c chan float64) {
+func arbitraryMath(i int, c chan float64) {
 	// Some stupid math to consume time
 	f := 1.0 / float64(i)
 	for j := 0; j < 10000; j++ {
@@ -18,13 +19,21 @@ func arbInc(i int, c chan float64) {
 const nbrRoutines = 100000
 
 func main() {
+	// NumCPU(): The set of available CPUs is checked by querying the operating system at process startup
+	// GOMAXPROCS sets the maximum number of CPUs that can be executing simultaneously
+	fmt.Println("NumCPU =", runtime.NumCPU())
+	fmt.Println("GOMAXPROCS =", runtime.GOMAXPROCS(0))
+	// Evalutate decreasing GOMAXPROCS
+	// runtime.GOMAXPROCS(2)
+	// fmt.Println("Set GOMAXPROCS to", runtime.GOMAXPROCS(0))
 
+	// Create channel, used to wait for all routines to complete
 	c := make(chan float64)
 
 	start := time.Now()
 	for i := 0; i < nbrRoutines; i++ {
 		// fmt.Println("Create routine ", i)
-		go arbInc(i, c)
+		go arbitraryMath(i, c)
 	}
 	fmt.Println("All routines created")
 
@@ -35,7 +44,5 @@ func main() {
 	}
 	duration := time.Since(start)
 	fmt.Println("All routines done")
-	fmt.Println("Duration =", duration)
-	time.Sleep(time.Second)
-	fmt.Println("Done")
+	fmt.Println("Execution time =", duration)
 }
