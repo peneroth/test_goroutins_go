@@ -1,3 +1,6 @@
+# Linux executable, added by Peter
+test_goroutines
+
 # Prerequisites
 *.d
 
