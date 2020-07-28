@@ -30,9 +30,9 @@ func main() {
 	pos := 1
 	for pos < len(os.Args) {
 		switch os.Args[pos] {
-		case "-help":
+		case "-h", "-help":
 			fmt.Println("Syntax: test_goroutines [argument [parameter]]")
-			fmt.Println("-help, this text")
+			fmt.Println("-help (or -h), this text")
 			fmt.Println("-threads x, maximum number of OS threads")
 			fmt.Println("-goroutines x, number of routines to be created")
 			fmt.Println("-loops x, number of loops in arbiraryMath")
@@ -89,7 +89,7 @@ func main() {
 			}
 			pos++
 		default:
-			fmt.Println(os.Args[pos], "is an unrecognized command")
+			fmt.Println(os.Args[pos], "is an unrecognized command. Try -help for info")
 			os.Exit(1)
 		}
 	}
