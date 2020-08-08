@@ -1,3 +1,10 @@
+//
+// Add version tag in git with the following command:
+// git tag -a v1.0.1
+// Use the following command to build with version number from git:
+// go build -i -v -ldflags="-X main.version=$(git describe --always --long --dirty)" .\test_goroutines.go
+//
+
 package main
 
 import (
@@ -11,6 +18,8 @@ import (
 
 const nbrGoRoutines = 100000
 const nbrLoops = 10000
+
+var version = "undefined"
 
 func arbitraryMath(i int, loops int, c chan float64) {
 	// Some stupid math to consume time
@@ -31,6 +40,8 @@ func main() {
 	for pos < len(os.Args) {
 		switch os.Args[pos] {
 		case "-h", "-help":
+			fmt.Println("test_goroutins version = ", version)
+			fmt.Println()
 			fmt.Println("Syntax: test_goroutines [argument [parameter]]")
 			fmt.Println("-help (or -h), this text")
 			fmt.Println("-threads x, maximum number of OS threads")
@@ -88,6 +99,9 @@ func main() {
 				os.Exit(1)
 			}
 			pos++
+		case "-v":
+			fmt.Println("test_goroutins version = ", version)
+			os.Exit(0)
 		default:
 			fmt.Println(os.Args[pos], "is an unrecognized command. Try -help for info")
 			os.Exit(1)
