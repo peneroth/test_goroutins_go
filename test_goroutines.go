@@ -1,7 +1,17 @@
 //
-// Add version tag in git with the following command:
-// git tag -a v1.0.1
-// Use the following command to build with version number from git:
+// test_goroutines can be used to expore how go routines are scheduled on OS processes
+//
+// Add version tag in git with the following command (used to add a version number to git):
+// git tag -a v1.1
+//
+// Tag objects (created with -a, -s, or -u) are called "annotated" tags; they contain a creation date,
+// the tagger name and e-mail, a tagging message, and an optional GnuPG signature. Whereas a "lightweight"
+// tag is simply a name for an object (usually a commit object).
+//
+// push a tag to github with the following command:
+// git push origin <tag_name>
+//
+// Use the following command to build with version number from git (the first one with more data):
 // go build -i -v -ldflags="-X main.version=$(git describe --always --long --dirty)" .\test_goroutines.go
 // go build -i -v -ldflags="-X main.version=$(git describe --always)" .\test_goroutines.go
 
