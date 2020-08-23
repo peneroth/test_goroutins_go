@@ -41,7 +41,7 @@ func arbitraryMath(i int, loops int, c chan float64) {
 }
 
 func main() {
-	// initiate
+	// initiate settings
 	loops := nbrLoops           // default number of loops
 	goRoutines := nbrGoRoutines // default nbr of go routines
 	//
