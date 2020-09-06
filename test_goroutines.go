@@ -59,7 +59,7 @@ func main() {
 			fmt.Println("-loops x, number of loops in arbiraryMath")
 			fmt.Println("-v, print version number")
 			fmt.Println()
-			fmt.Println("Default configuration")
+			fmt.Println("Default configuration on current computer")
 			fmt.Println("NumCPU =", runtime.NumCPU())
 			fmt.Println("GOMAXPROCS =", runtime.GOMAXPROCS(0))
 			fmt.Println("goroutines = ", nbrGoRoutines)
