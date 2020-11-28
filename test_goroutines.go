@@ -12,8 +12,8 @@
 // git push origin <tag_name>
 //
 // Use the following command to build with version number from git (the first one with more data):
-// go build -i -v -ldflags="-X main.version=$(git describe --always --long --dirty)" .\test_goroutines.go
-// go build -i -v -ldflags="-X main.version=$(git describe --always)" .\test_goroutines.go
+// go build -i -v -ldflags="-X main.version=$(git describe --always --long --dirty)" ./test_goroutines.go
+// go build -i -v -ldflags="-X main.version=$(git describe --always)" ./test_goroutines.go
 
 package main
 
