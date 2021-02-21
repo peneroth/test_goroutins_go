@@ -1,1 +1,2 @@
 GOARM=7 go build test_goroutines.go 
+GOARCH=arm GOARM=7 go build test_goroutines.go
