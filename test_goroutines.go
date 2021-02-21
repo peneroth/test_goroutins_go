@@ -26,18 +26,29 @@ import (
 	"time"
 )
 
-const nbrGoRoutines = 100000
-const nbrLoops = 10000
+// const nbrGoRoutines = 100000
+// const nbrLoops = 10000
+
+const nbrGoRoutines = 10
+const nbrLoops = 10
 
 var version = "undefined"
 
-func arbitraryMath(i int, loops int, c chan float64) {
+type c_type struct {
+	i int
+	f float64
+}
+
+func arbitraryMath(i int, loops int, c chan c_type) {
 	// Some stupid math to consume time
-	f := 1.0 / float64(i)
+	f := 1.0 / (float64(i) + 0.1)
 	for j := 0; j < loops; j++ {
 		f = math.Sin(f) + 0.1
 	}
-	c <- f
+	fmt.Println("Routine ", i, " is Done ")
+	c_data := c_type{i: i}
+	c_data.f = f
+	c <- c_data
 }
 
 func main() {
@@ -124,19 +135,18 @@ func main() {
 	}
 
 	// Create channel, used to wait for all routines to complete
-	c := make(chan float64)
+	c := make(chan c_type)
 
 	start := time.Now()
 	for i := 0; i < goRoutines; i++ {
-		// fmt.Println("Create routine ", i)
+		fmt.Println("Create routine ", i)
 		go arbitraryMath(i, loops, c)
 	}
 	fmt.Println("All routines created")
 
 	for i := 0; i < goRoutines; i++ {
-		x := <-c
-		x = x + 1
-		// fmt.Println("Recieved from routine", x-1)
+		c_data := <-c
+		fmt.Println("Recieved from routine", c_data.i, " Value = ", c_data.f)
 	}
 	duration := time.Since(start)
 	fmt.Println("All routines done")
