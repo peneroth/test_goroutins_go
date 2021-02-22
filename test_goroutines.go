@@ -132,7 +132,7 @@ func main() {
 	}
 
 	// Create channel, used to wait for all routines to complete
-	c := make(chan ch_type)
+	c := make(chan ch_type, nbrGoRoutines)
 
 	start := time.Now()
 	for i := 0; i < goRoutines; i++ {
