@@ -1,0 +1,3 @@
+GOOS=windows GOARCH=amd64 go build -o test_goroutines-amd64.exe test_goroutines.go
+GOOS=windows GOARCH=386 go build -o test_goroutines-386.exe test_goroutines.go
+
